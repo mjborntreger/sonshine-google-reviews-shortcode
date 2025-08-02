@@ -1,0 +1,86 @@
+.google-reviews {
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+  font-size: 22px;
+  position: relative;
+  z-index: 5;
+}
+
+.google-reviews .average-rating-badge {
+  background-color: #fb9216;
+  color: #fff;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 50px;
+  display: inline-block;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.google-reviews .average-rating-badge .big-number {
+  font-size: 2em;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.google-reviews .review {
+  margin-bottom: 20px;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.google-reviews .stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.google-reviews .star-icon {
+  width: 18px;
+  height: 18px;
+  fill: #fb9216;
+  transition: transform 0.3s ease;
+}
+
+.google-reviews .hidden-review {
+  display: none;
+}
+
+.google-reviews .show-more-reviews,
+.google-reviews .see-all-reviews {
+  background-color: #0045d7;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.google-reviews .see-all-reviews {
+  background-color: #00e3fe;
+  color: #000;
+}
+
+.google-review-disclaimer {
+  font-size: 0.75em;
+  color: #666;
+  font-style: italic;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.google-reviews .review-meta {
+  font-size: 0.8em;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+.google-reviews .review-location {
+  color: #0045d7;
+  text-decoration: underline;
+  font-style: italic;
+}
