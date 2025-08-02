@@ -84,3 +84,17 @@
   text-decoration: underline;
   font-style: italic;
 }
+
+.google-review-attribution {
+  font-size: 0.7em;
+  text-align: right;
+  margin-top: 10px;
+  opacity: 0.6;
+}
+.google-review-attribution a {
+  color: #555;
+  text-decoration: none;
+}
+.google-review-attribution a:hover {
+  text-decoration: underline;
+}
