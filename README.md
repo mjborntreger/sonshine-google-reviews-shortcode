@@ -1,5 +1,5 @@
-# sonshine-google-reviews-shortcode
-A lightweight, cacheable Google Reviews shortcode for WordPress. Built by SonShine Roofing to display 5-star reviews in style — with options for quick setup or theme-level optimization.
+# SonShine Roofing Google Reviews Website Widget
+A lightweight, auto-updating cacheable Google Reviews widget shortcode for WordPress. Built by SonShine Roofing to display 5-star reviews in style — with options for quick setup or theme-level optimization.
 
 Showcase your 5-star Google reviews in style with this customizable, cacheable shortcode.
 
