@@ -3,8 +3,8 @@
  * Plugin Name: SonShine Google Reviews Shortcode
  * Description: Displays filtered 5-star Google reviews using the Places API. Caches results and supports optional attribution and count controls.
  * Version: 1.0
- * Author: SonShine Roofing
- * Author URI: https://sonshineroofing.com
+ * Author: Michael Borntreger
+ * Author URI: https://michaelborntreger.life
  * License: SonShine Roofing License v1.0
  */
 
