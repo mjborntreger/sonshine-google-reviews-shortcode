@@ -1,17 +1,39 @@
 <?php
-function fetch_google_reviews() {
-    $api_key = 'PLACES_API_KEY'; // <-- INSERT YOUR GOOGLE PLACES API KEY HERE
-    $place_id = 'PLACE_ID'; // <-- INSERT YOUR GOOGLE PLACE ID HERE
-    $google_reviews_url = 'https://www.google.com/maps/place/?q=place_id:' . $place_id;
-    $cache_file = get_stylesheet_directory() . '/google-reviews-cache.json';
-    $cache_duration = 21600; // CACHE REFRESHES EVERY 6 HOURS, CHANGE AS NEEDED
+/**
+ * Plugin Name: SonShine Google Reviews Shortcode
+ * Description: Displays filtered 5-star Google reviews using the Places API. Caches results and supports optional attribution and count controls.
+ * Version: 1.0
+ * Author: SonShine Roofing
+ * Author URI: https://sonshineroofing.com
+ * License: SonShine Roofing License v1.0
+ */
+
+function sonshine_fetch_google_reviews($atts = []) {
+    // ========== USER SETTINGS ==========
+    $api_key     = 'PLACES_API_KEY'; // <-- INSERT YOUR GOOGLE PLACES API KEY
+    $place_id    = 'PLACE_ID';       // <-- INSERT YOUR GOOGLE PLACE ID
+    $profile_url = 'https://www.google.com/maps/place/SonShine+Roofing'; // <-- UPDATE TO YOUR PUBLIC GBP URL
+
+    // ========== SHORTCODE ATTRIBUTES ==========
+    $atts = shortcode_atts([
+        'count' => 5
+    ], $atts);
+    $max_reviews = intval($atts['count']);
+
+    // ========== CACHING ==========
+    $cache_file = sanitize_file_name(get_stylesheet_directory() . '/google-reviews-cache.json');
+    $cache_duration = 21600; // 6 hours
 
     if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_duration) {
         $cached = json_decode(file_get_contents($cache_file), true);
     } else {
         $response = wp_remote_get("https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=rating,reviews&key=$api_key");
+        if (is_wp_error($response)) return '<p>Unable to retrieve Google reviews at this time.</p>';
         $body = wp_remote_retrieve_body($response);
         $data = json_decode($body, true);
+
+        if (empty($data['result'])) return '<p>Google Reviews API returned no data.</p>';
+
         $cached = [
             'reviews' => $data['result']['reviews'] ?? [],
             'avg_rating' => $data['result']['rating'] ?? null
@@ -19,6 +41,7 @@ function fetch_google_reviews() {
         file_put_contents($cache_file, json_encode($cached));
     }
 
+    // ========== PROCESS ==========
     $reviews = array_filter($cached['reviews'], function($r) {
         return isset($r['rating']) && intval($r['rating']) === 5;
     });
@@ -27,14 +50,13 @@ function fetch_google_reviews() {
 
     ob_start();
     ?>
-
     <style>
     .google-reviews {
       margin: 10px 0;
       font-family: Arial, sans-serif;
       font-size: 22px;
-	  position: relative;
-	  z-index: 5;
+      position: relative;
+      z-index: 5;
     }
     .google-reviews .average-rating-badge {
       background-color: #fb9216;
@@ -104,25 +126,33 @@ function fetch_google_reviews() {
       text-decoration: underline;
       font-style: italic;
     }
+    .google-review-attribution {
+      font-size: 0.7em;
+      text-align: right;
+      margin-top: 10px;
+      opacity: 0.6;
+    }
+    .google-review-attribution a {
+      color: #555;
+      text-decoration: none;
+    }
+    .google-review-attribution a:hover {
+      text-decoration: underline;
+    }
     </style>
-
     <?php
+
     if (!empty($reviews)) {
         echo '<div class="google-reviews">';
 
         if ($avg_rating) {
-        	echo '<a 		href="LINK_TO_YOUR_GOOGLE_BUSINESS_PROFILE"
-        		target="_blank" rel="noopener noreferrer" 
-        		class="average-rating-badge" 
-        		style="text-decoration: none;">
-        		<span class="big-number">' . $avg_rating . '</span> ★ on Google
-    		</a>'; // ^^^ INSERT LINK TO GOOGLE BUSINESS PROFILE ABOVE
-		}
-
+            echo '<a href="' . esc_url($profile_url) . '" class="average-rating-badge" target="_blank" rel="noopener noreferrer">';
+            echo '<span class="big-number">' . esc_html($avg_rating) . '</span> ★ on Google</a>';
+        }
 
         $i = 0;
         foreach ($reviews as $review) {
-            if ($i >= 5) break;
+            if ($i >= $max_reviews) break;
             $extra_class = ($i >= 3) ? ' hidden-review' : '';
             echo '<div class="review' . $extra_class . '">';
             echo '<strong>' . esc_html($review['author_name']) . '</strong><br>';
@@ -154,13 +184,18 @@ function fetch_google_reviews() {
             echo '<button class="show-more-reviews">See More</button>';
         }
 
-        echo '<a href="LINK_TO_YOUR_GOOGLE_BUSINESS_PROFILE" target="_blank" rel="noopener noreferrer" class="see-all-reviews">See all reviews</a>'; // <-- INSERT LINK TO GOOGLE BUSINESS PROFILE HERE
+        echo '<a href="' . esc_url($profile_url) . '" target="_blank" rel="noopener noreferrer" class="see-all-reviews">See all reviews</a>';
 
-        echo '<br><p class="google-review-disclaimer">All reviews shown above are automatically pulled from Google using the official API.</p>';
+        if (apply_filters('sonshine_show_reviews_attribution', true)) {
+            echo '<div class="google-review-attribution">';
+            echo 'Powered by <a href="https://github.com/SonShineRoofing/sonshine-google-reviews-shortcode" target="_blank" rel="noopener noreferrer">SonShine Google Reviews</a>';
+            echo '</div>';
+        }
+
+        echo '<p class="google-review-disclaimer">All reviews shown above are automatically pulled from Google using the official API.</p>';
         echo '</div>';
 
-        // JS handler to show hidden reviews
-        echo "<script>
+        echo "<script id='sonshine-show-more-handler'>
         document.addEventListener('DOMContentLoaded', function () {
             const btn = document.querySelector('.show-more-reviews');
             if (btn) {
@@ -178,6 +213,8 @@ function fetch_google_reviews() {
     } else {
         echo '<p>No 5-star reviews found.</p>';
     }
+
     return ob_get_clean();
 }
-add_shortcode('sonshine_google_reviews', 'fetch_google_reviews');
+
+add_shortcode('sonshine_google_reviews', 'sonshine_fetch_google_reviews');
