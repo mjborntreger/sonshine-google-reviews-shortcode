@@ -49,5 +49,17 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
 Maintained by [SonShine Roofing](https://sonshineroofing.com), Sarasota FL.
 "Since 1987 we've got you covered"
 
-## 📜 License
-MIT – Do what you want, just don't take our stars. Open source is the way to the future. 
+## 📜 License & Usage
+
+This project is open source and free for personal or commercial use — but **attribution is required**.
+
+### By using this shortcode, you agree to:
+
+- Leave the small “Powered by SonShine Google Reviews” badge in place (or add a visible credit elsewhere)
+- Maintain a backlink to either:
+  - This GitHub repository, or
+  - [https://sonshineroofing.com](https://sonshineroofing.com)
+
+If you'd prefer to remove attribution or use this in a white-label project, please contact the SonShine Roofing webmaster first.
+
+👉 Send an email directly to marketing@sonshineroofing.com
