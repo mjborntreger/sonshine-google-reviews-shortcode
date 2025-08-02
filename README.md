@@ -19,7 +19,31 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
 
 1. Copy the contents of [`plugin-mode/google-reviews-shortcode.php`](plugin-mode/google-reviews-shortcode.php)
 2. Paste it into a custom plugin or [WPCode](https://wpcode.com/)
-3. Use the shortcode:  
+3. Insert your Google Places API Key and link to your Google Business Profile where needed (instructions below on how to get Places API Key)
+4. Use the shortcode in your builder:  
    ```php
    [sonshine_google_reviews]
 
+
+## 🛠️ Optimized Theme Integration
+
+1. Copy all files from [`theme-mode/`](theme-mode/) into your WordPress' theme folder
+2. Insert your Google Places API Key and link to your Google Business Profile in [`theme-mode/fetch-google-reviews.php`](fetch-google-reviews.php) (instructions below on how to get Places API key)
+3. Use the shortcode in your builder as normal:
+   ```php
+   [sonshine_google_reviews]
+
+## 🔑 How to Get Your Google Places API Key
+1. Go to [`https://console.cloud.google.com/`](Google Cloud Console)
+2. Create or select a project
+3. Enable the "Places API"
+4. Generate an API Key
+5. Add it to your code (follow the comments from within the code. Everything is clearly labeled)
+
+
+## 🙏 Credit
+Maintained by [`https://sonshineroofing.com`](SonShine Roofing), Sarasota FL.
+"Since 1987 we've got you covered"
+
+## 📜 License
+MIT – Do what you want, just don't take our stars. Open source is the way to the future. 
