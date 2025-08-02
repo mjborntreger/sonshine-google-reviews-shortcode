@@ -16,7 +16,7 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
 
 ## See It in Action
 
-1. [For a live demo visit sonshineroofing.com](https://sonshineroofing.com)
+1. [For a live demo visit sonshineroofing.com](https://sonshineroofing.com/reviews)
 
 ---
 
