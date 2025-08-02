@@ -13,6 +13,11 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
 - Responsive and accessible
 - Two ways to use: Quick Setup or Optimized Theme Integration
 
+
+## See It in Action
+
+1. [For a live demo visit sonshineroofing.com](https://sonshineroofing.com)
+
 ---
 
 ## 🚀 Quick Setup (WPCode Snippets / Plugin Drop-in)
@@ -24,7 +29,6 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
    ```php
    [sonshine_google_reviews]
 
-
 ## 🛠️ Optimized Theme Integration
 
 1. Copy all files from [`theme-mode/`](theme-mode/) into your WordPress' theme folder
@@ -34,7 +38,7 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
    [sonshine_google_reviews]
 
 ## 🔑 How to Get Your Google Places API Key
-1. Go to [`https://console.cloud.google.com/`](Google Cloud Console)
+1. Go to [Google Cloud Console](https://console.cloud.google.com)
 2. Create or select a project
 3. Enable the "Places API"
 4. Generate an API Key
@@ -42,7 +46,7 @@ Built for [SonShine Roofing](https://sonshineroofing.com), but available to all.
 
 
 ## 🙏 Credit
-Maintained by [`https://sonshineroofing.com`](SonShine Roofing), Sarasota FL.
+Maintained by [SonShine Roofing](https://sonshineroofing.com), Sarasota FL.
 "Since 1987 we've got you covered"
 
 ## 📜 License
